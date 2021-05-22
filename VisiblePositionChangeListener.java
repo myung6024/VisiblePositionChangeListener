@@ -1,8 +1,6 @@
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.View;
-import android.widget.ImageView;
 
 public class VisiblePositionChangeListener extends RecyclerView.OnScrollListener {
     public interface OnChangeListener {
@@ -16,21 +14,12 @@ public class VisiblePositionChangeListener extends RecyclerView.OnScrollListener
     private int lastVisiblePosition;
     private final OnChangeListener listener;
     private LinearLayoutManager layoutManager;
-    private ImageView elevation;
 
     public VisiblePositionChangeListener(LinearLayoutManager linearLayoutManager, OnChangeListener listener) {
         this.listener = listener;
         this.firstVisiblePosition = RecyclerView.NO_POSITION;
         this.lastVisiblePosition = RecyclerView.NO_POSITION;
         this.layoutManager = linearLayoutManager;
-    }
-
-    public VisiblePositionChangeListener(LinearLayoutManager linearLayoutManager, ImageView elevation, OnChangeListener listener) {
-        this.listener = listener;
-        this.firstVisiblePosition = RecyclerView.NO_POSITION;
-        this.lastVisiblePosition = RecyclerView.NO_POSITION;
-        this.layoutManager = linearLayoutManager;
-        this.elevation = elevation;
     }
 
     public void refreshVisiblePosition(){
@@ -41,14 +30,6 @@ public class VisiblePositionChangeListener extends RecyclerView.OnScrollListener
     @Override
     public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
-
-        if (elevation != null) {
-            if (recyclerView.canScrollVertically(-1)) {
-                elevation.setVisibility(View.VISIBLE);
-            } else {
-                elevation.setVisibility(View.GONE);
-            }
-        }
 
         int firstPosition = layoutManager.findFirstVisibleItemPosition();
         int lastPosition = layoutManager.findLastVisibleItemPosition();
